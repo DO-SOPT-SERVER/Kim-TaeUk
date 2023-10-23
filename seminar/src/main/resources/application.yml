@@ -1,7 +1,4 @@
 spring:
-#  config:
-#    activate:
-#      on-profile: local
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost/~/test
@@ -16,6 +13,6 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-h2:
-  console:
-    enabled: true
+  h2:
+    console:
+      enabled: true
