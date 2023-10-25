@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController // Spring에서 RESTful 컨트롤러임을 정의
 @RequestMapping("/api/member")  // 공통된 url mapping
@@ -97,6 +98,13 @@ public class MemberController {
     public ResponseEntity<MemberGetResponse> getMemberProfileV2(@PathVariable Long memberId) {
         MemberGetResponse response = memberService.getMemberByIdV2(memberId);
         return ResponseEntity.ok(response);
+    }
+
+    // 전체 사용자 조회
+    @GetMapping
+    public ResponseEntity<List<MemberGetResponse>> getMembersProfile() {
+        List<MemberGetResponse> memberGetResponseList = memberService.getMembers();
+        return ResponseEntity.ok(memberGetResponseList);
     }
 }
 
