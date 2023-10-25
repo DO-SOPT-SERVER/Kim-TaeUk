@@ -1,8 +1,10 @@
 package com.server.dosopt.seminar.controller;
 
 import com.server.dosopt.seminar.dto.MemberCreateRequest;
+import com.server.dosopt.seminar.dto.MemberGetResponse;
 import com.server.dosopt.seminar.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,6 +67,36 @@ public class MemberController {
         String memberId = memberService.create(request);
         URI location = URI.create(MEMBER_BASE_URL + memberId);
         return ResponseEntity.created(location).build();
+    }
+
+    // 특정 사용자 정보 단건 조회 V1
+    @GetMapping("/{memberId}/v1")
+    public ResponseEntity<MemberGetResponse> getMemberProfileV1(@PathVariable Long memberId) {
+        /*
+        @PathVariable: 경로 변수 가져오는 데 사용
+        -> URI에서 정의한 경로 변수 {memberId}를 메서드의 매개변수로 받음!
+         */
+        MemberGetResponse response = memberService.getMemberByIdV2(memberId);
+        return ResponseEntity.ok(response);
+    }
+
+    // 특정 사용자 정보 단건 조회 V2
+    /*
+    @GetMapping 속성 - consumes, produces
+    -> 사용함으로써 API endpoint의 req/res 형식을 명확히 함, client-server간 통신 안전하게 함
+
+    consumes
+    : 클라이언트가 보내는 request의 Content-Type 헤더를 제한함
+    consumes = "application/json" -> json 형식으로 보낼 때만 해당 endpoint 호출 가능
+
+    produces
+    : 서버가 생성하는 response의 Content-Type의 헤더를 제한함
+    produces = MediaType.APPLICATION_JSON_VALUE -> json 형식의 response를 클라이언트에게 보낼 것을 명시함
+     */
+    @GetMapping(value = "/{memberId}/v2", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MemberGetResponse> getMemberProfileV2(@PathVariable Long memberId) {
+        MemberGetResponse response = memberService.getMemberByIdV2(memberId);
+        return ResponseEntity.ok(response);
     }
 }
 
