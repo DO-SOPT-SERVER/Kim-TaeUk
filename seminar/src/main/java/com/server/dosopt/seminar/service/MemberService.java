@@ -90,5 +90,11 @@ public class MemberService {
                 .map(MemberGetResponse::of)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteMember(Long memberId) {
+        Member member = memberJpaRepository.findByIdOrThrow(memberId);
+        memberJpaRepository.delete(member);
+    }
 }
 
