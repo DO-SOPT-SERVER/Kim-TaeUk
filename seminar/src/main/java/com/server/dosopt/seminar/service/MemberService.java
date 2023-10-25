@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /*
 @Service: Service 계층 컴포넌트로 선언,
 SpringApplicationContext에 service bean으로 등록함!
@@ -68,6 +71,24 @@ public class MemberService {
     public MemberGetResponse getMemberByIdV3(Long id) {
         Member member = memberJpaRepository.findByIdOrThrow(id);
         return MemberGetResponse.of(member);
+    }
+
+    /*
+    memberJpaRepository에서 모든 사용자 데이터 가져옴
+    -> db에서 모든 사용자 검색, List<Member> 형식으로 반환
+
+    List<Member>를 stream으로 변환,
+    stream의 각 요소를 MemberGetResponse 객체로 mapping
+    -> MemberGetResponse.of()의 정적 메서드 사용 Member 객체를 MemberGetResponse 객체로 변환
+
+    mapping된 결과를 List로 수집
+    -> stream의 요소들이 List<MemberGetResponse> 형태로 모아짐
+     */
+    public List<MemberGetResponse> getMembers() {
+        List<Member> memberList = memberJpaRepository.findAll();
+        return memberList.stream()
+                .map(MemberGetResponse::of)
+                .collect(Collectors.toList());
     }
 }
 
