@@ -1,8 +1,10 @@
 package com.server.dosopt.seminar.service;
 
 import com.server.dosopt.seminar.domain.Member;
+import com.server.dosopt.seminar.domain.SOPT;
 import com.server.dosopt.seminar.dto.MemberCreateRequest;
 import com.server.dosopt.seminar.dto.MemberGetResponse;
+import com.server.dosopt.seminar.dto.MemberProfileUpdateRequest;
 import com.server.dosopt.seminar.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -95,6 +97,12 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
         memberJpaRepository.delete(member);
+    }
+
+    @Transactional
+    public void updateSOPT(Long memberId, MemberProfileUpdateRequest request) {
+        Member member = memberJpaRepository.findByIdOrThrow(memberId);
+        member.updateSOPT(new SOPT(request.generation(), request.part()));
     }
 }
 
