@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController // Spring에서 RESTful 컨트롤러임을 정의
-@RequestMapping(MemberController.MEMBER_BASE_URL)  // 공통된 url mapping
+@RequestMapping("/api/member")  // 공통된 url mapping
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -23,9 +23,9 @@ public class MemberController {
     MemberService 객체를 MemberController 클래스에 편리하게 주입할 수 있음
      */
     private final MemberService memberService;
-    public static final String MEMBER_BASE_URL = "api/member/";
+    public static final String MEMBER_BASE_URL = "/api/member/";
 
-    // Create
+    // 생성
     /*
     RESTful API에서 새로운 resource 생성 시퀀스
 
