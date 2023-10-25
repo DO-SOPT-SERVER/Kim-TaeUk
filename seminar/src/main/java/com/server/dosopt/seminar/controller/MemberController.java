@@ -106,5 +106,16 @@ public class MemberController {
         List<MemberGetResponse> memberGetResponseList = memberService.getMembers();
         return ResponseEntity.ok(memberGetResponseList);
     }
+
+    // 삭제
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
+        memberService.deleteMember(memberId);
+        /*
+        삭제 요청이 성공적으로 처리
+        -> 클라이언트에게 204 No Content response를 반환
+         */
+        return ResponseEntity.noContent().build();
+    }
 }
 
