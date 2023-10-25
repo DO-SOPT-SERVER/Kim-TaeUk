@@ -52,4 +52,8 @@ public class Member {
         this.age = age;
         this.sopt = sopt;
     }
+
+    public void updateSOPT(SOPT sopt) {
+        this.sopt = sopt;
+    }
 }
