@@ -2,9 +2,9 @@ package com.server.dosopt.seminar.service;
 
 import com.server.dosopt.seminar.domain.Member;
 import com.server.dosopt.seminar.domain.SOPT;
-import com.server.dosopt.seminar.dto.MemberCreateRequest;
-import com.server.dosopt.seminar.dto.MemberGetResponse;
-import com.server.dosopt.seminar.dto.MemberProfileUpdateRequest;
+import com.server.dosopt.seminar.dto.member.MemberCreateRequest;
+import com.server.dosopt.seminar.dto.member.MemberGetResponse;
+import com.server.dosopt.seminar.dto.member.MemberProfileUpdateRequest;
 import com.server.dosopt.seminar.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
