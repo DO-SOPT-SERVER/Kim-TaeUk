@@ -1,11 +1,18 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sopt?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
     password:
+#  main:
+#    allow-bean-definition-overriding: true
+
+  sql:
+    init:
+      mode: always
 
   jpa:
+    defer-datasource-initialization: true
     show-sql: true
     hibernate:
       ddl-auto: create
@@ -13,6 +20,6 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
