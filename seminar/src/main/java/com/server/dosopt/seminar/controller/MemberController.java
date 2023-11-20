@@ -1,8 +1,8 @@
 package com.server.dosopt.seminar.controller;
 
-import com.server.dosopt.seminar.dto.MemberCreateRequest;
-import com.server.dosopt.seminar.dto.MemberGetResponse;
-import com.server.dosopt.seminar.dto.MemberProfileUpdateRequest;
+import com.server.dosopt.seminar.dto.member.MemberCreateRequest;
+import com.server.dosopt.seminar.dto.member.MemberGetResponse;
+import com.server.dosopt.seminar.dto.member.MemberProfileUpdateRequest;
 import com.server.dosopt.seminar.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
 
     /*
     @Id: 'id' field가 entity의 PK임을 나타냄
@@ -45,6 +45,13 @@ public class Member {
     /*
     @Builder: Builder 패턴 사용하여 객체 생성하게 해줌(lombok)
      */
+
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//    private final List<Post> posts = new ArrayList<>();
+    /*
+    양방향 연관관계
+     */
+
     @Builder
     public Member(String name, String nickname, int age, SOPT sopt) {
         this.name = name;
