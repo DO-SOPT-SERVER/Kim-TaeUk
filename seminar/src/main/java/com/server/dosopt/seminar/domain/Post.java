@@ -30,9 +30,9 @@ table 이름은 @Table(name = "")에서 지정한 이름으로!
 @Table(name = "post")
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long postId;
     /*
     JPA에서 @Entity 클래스 안의 컬럼명을 Camel Case(postId)로 써도
     테이블 생성 시 DB에는 Snake Case(post_id)로 들어감
@@ -45,15 +45,17 @@ public class Post {
     //일대다에서는 다가 주인이 됨!
      */
 
-    private String title;
+	private String title;
 
-    /*
-    @Column 어노테이션의 columnDefinition 속성
-    : Entity 클래스의 field가 DB table에서 사용될 때 데이터 유형 및 제약 조건 정의
-    -> TEXT 데이터 유형 사용을 지정
-     */
-    @Column(columnDefinition = "TEXT")
-    private String content;
+	/*
+	@Column 어노테이션의 columnDefinition 속성
+	: Entity 클래스의 field가 DB table에서 사용될 때 데이터 유형 및 제약 조건 정의
+	-> TEXT 데이터 유형 사용을 지정
+	 */
+	@Column(columnDefinition = "TEXT")
+	private String content;
+
+	private String imageUrl;
 
     /*
     @ManyToOne
@@ -69,30 +71,42 @@ public class Post {
     지정X -> default: field명_참조핱테이블PK명
     */
 
-    /*
-    FetcyType.EAGER(즉시 로딩) VS FetcyType.LAZY(지연 로딩)
+	/*
+	FetcyType.EAGER(즉시 로딩) VS FetcyType.LAZY(지연 로딩)
 
-    FetcyType.EAGER
-    : entity 조회 시 연관된 Entity도 함께 조회
-    - 연관 entity가 필요 없어도 함께 로드됨
+	FetcyType.EAGER
+	: entity 조회 시 연관된 Entity도 함께 조회
+	- 연관 entity가 필요 없어도 함께 로드됨
 
-    FetcyType.LAZY
-    : entity를 실제 사용할 때만 조회
-    - 연관 entity가 필요할 시점에 쿼리 실행하여 로드
-    -> JPA 구현체는 실제 entity 대신 proxy 객체를 반환
-     */
-    @ManyToOne(fetch = FetchType.LAZY)  // @ManyToOne은 default가 EAGER임
-    @JoinColumn(name = "member_id")
-    private Member member;  // 실제로 mapping할 object를 걸어줘야 함
+	FetcyType.LAZY
+	: entity를 실제 사용할 때만 조회
+	- 연관 entity가 필요할 시점에 쿼리 실행하여 로드
+	-> JPA 구현체는 실제 entity 대신 proxy 객체를 반환
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)  // @ManyToOne은 default가 EAGER임
+	@JoinColumn(name = "member_id")
+	private Member member;  // 실제로 mapping할 object를 걸어줘야 함
 
-    @Builder
-    public Post(String title, String content, Member member) {
-        this.title = title;
-        this.content = content;
-        this.member = member;
-    }
+	@Builder
+	public Post(String title, String content, Member member) {
+		this.title = title;
+		this.content = content;
+		this.member = member;
+	}
 
-    public void updateContent(String content) {
-        this.content = content;
-    }
+	/*
+	@Builder를 생성자 2개에 적용하면 builder가 적용되지 않는 경우가 있음
+	-> builderMethodName 옵션 추가하여 사용!
+	 */
+	@Builder(builderMethodName = "builderWithImageUrl")
+	public Post(String title, String content, String imageUrl, Member member) {
+		this.title = title;
+		this.content = content;
+		this.imageUrl = imageUrl;
+		this.member = member;
+	}
+
+	public void updateContent(String content) {
+		this.content = content;
+	}
 }
