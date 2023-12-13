@@ -98,7 +98,7 @@ public class Post {
 	@Builder를 생성자 2개에 적용하면 builder가 적용되지 않는 경우가 있음
 	-> builderMethodName 옵션 추가하여 사용!
 	 */
-	@Builder(builderMethodName = "builderWithImageUrl")
+	@Builder(builderMethodName = "builderWithImageUrl", buildMethodName = "buildWithImageUrl")
 	public Post(String title, String content, String imageUrl, Member member) {
 		this.title = title;
 		this.content = content;

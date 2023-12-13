@@ -35,9 +35,9 @@ public class PostServiceV2 {
 			Post post = Post.builderWithImageUrl()
 				.title(request.title())
 				.content(request.content())
-				.imageUrl(imageUrl)
+				.imageUrl("https://dosopt-server-demo-wooki-bucket.s3.ap-northeast-2.amazonaws.com/" + imageUrl)
 				.member(member)
-				.build();
+				.buildWithImageUrl();
 
 			Post createdPost = postJpaRepository.save(post);
 			return createdPost.getPostId().toString();
