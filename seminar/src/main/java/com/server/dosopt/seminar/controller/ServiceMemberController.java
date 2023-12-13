@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.dosopt.seminar.dto.servicemember.ServiceMemberRequest;
+import com.server.dosopt.seminar.dto.servicemember.ServiceMemberSignInResponse;
 import com.server.dosopt.seminar.service.ServiceMemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,8 @@ public class ServiceMemberController {
 	}
 
 	@PostMapping("sign-in")
-	public ResponseEntity<Void> signIn(@RequestBody ServiceMemberRequest request) {
-		serviceMemberService.signIn(request);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<ServiceMemberSignInResponse> signIn(@RequestBody ServiceMemberRequest request) {
+		ServiceMemberSignInResponse response = serviceMemberService.signIn(request);
+		return ResponseEntity.ok(response);
 	}
 }
